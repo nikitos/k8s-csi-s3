@@ -12,9 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Push Docker
-      run: (echo '${{ secrets.REGISTRY_KEY }}' | docker login --username json_key --password-stdin cr.yandex) && make push
-
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3.3.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ github.token }}
+          
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
