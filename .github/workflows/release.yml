@@ -18,6 +18,9 @@ jobs:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ github.token }}
+    
+    - name: Push Docker
+      run: make push
           
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
