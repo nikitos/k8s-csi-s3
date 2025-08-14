@@ -202,7 +202,7 @@ func (geesefs *geesefsMounter) Mount(target, volumeID string) error {
 	}
 	unitPath := "/run/systemd/system/" + unitName + ".d"
 	err = os.MkdirAll(unitPath, 0755)
-	if err != nil {
+	if err != nil && !os.IsExist(err) {
 		return fmt.Errorf("Error creating directory %s: %v", unitPath, err)
 	}
 	// force & lazy unmount to cleanup possibly dead mountpoints
